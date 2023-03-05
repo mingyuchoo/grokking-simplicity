@@ -29,19 +29,19 @@ function update_tax_dom(total) {
   set_tax_dom(calc_tax(total));
 }
 
-/** Calculation */
+/** Computation */
 function add_element_last(array, elem) {
   var new_array = array.slice();
   new_array.push(elem);
   return new_array;
 }
 
-/** Calculation */
+/** Computation */
 function add_item(cart, item) {
   return add_element_last(cart, item);
 }
 
-/** Calculation */
+/** Computation */
 function make_cart_item(name, price) {
   return {
     name: name,
@@ -49,7 +49,7 @@ function make_cart_item(name, price) {
   };
 }
 
-/** Calculation */
+/** Computation */
 function calc_total(cart) {
   var total = 0;
   for (var i = 0; i < cart.length; i++) {
@@ -59,12 +59,12 @@ function calc_total(cart) {
   return total;
 }
 
-/** Calculation */
+/** Computation */
 function gets_free_shipping(cart) {
   return calc_total(cart) >= 20;
 }
 
-/** Calculation */
+/** Computation */
 function calc_tax(amount) {
   return amount * 0.10;
 }
