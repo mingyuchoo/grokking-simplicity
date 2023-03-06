@@ -10,7 +10,7 @@ function drop_first(array) {
 
 /** After (Computation) */
 function drop_first(array) {
-    var array_copy = array.slice();  // 1. make copy
-    array_copy.shift();              // 2. change copy
+    var array_copy = array.slice();  // 1. create copy
+    array_copy.shift();              // 2. mutate copy
     return array_copy;               // 3. return copy
 }

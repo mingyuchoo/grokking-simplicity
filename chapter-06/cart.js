@@ -36,8 +36,8 @@ function update_tax_dom(total) {
 
 /** Computation */
 function add_element_last(array, elem) {
-  var new_array = array.slice();   // 1. make copy
-  new_array.push(elem);            // 2. change copy
+  var new_array = array.slice();   // 1. create copy
+  new_array.push(elem);            // 2. mutate copy
   return new_array;                // 3. return copy
 }
 
@@ -81,8 +81,8 @@ function removeItems(array, idx, count) {
 
 /** After (Computation) */
 function removeItems(array, idx, count) {
-    var copy = array.slice();   // 1. make copy
-    copy.splice(dix, count);    // 2. change copy
+    var copy = array.slice();   // 1. create copy
+    copy.splice(dix, count);    // 2. mutate copy
     return copy;                // 3. return copy
 }
 
@@ -99,14 +99,14 @@ function remove_item_by_name(cart, name) {
 
 /** After (Computation - 1) */
 function remove_item_by_name(cart, name) {
-    var new_cart = cart.slice();                 // 1. make copy
+    var new_cart = cart.slice();                 // 1. create copy
     var idx = null;
     for (var i = 0; i < new_cart.length; i++) {
         if (new_cart[i].name === name)
             idx = i;
     }
     if (idx !== null)
-        new_cart.splice(idx, 1);                 // 2. change copy
+        new_cart.splice(idx, 1);                 // 2. mutate copy
     return new_cart;                             // 3. return copy
 }
 
@@ -137,4 +137,29 @@ function delete_handler(name) {
     set_cart_total_dom(total);
     update_shipping_icons(shopping_cart);
     update_tax_dom(total);
+}
+
+/** Before (Action) */
+function setPriceByName(cart, name, price) {
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].name === name)
+            cart[i].price = price;
+    }
+}
+
+/** After (Computation) */
+function setPriceByName(cart, name, price) {
+    var cartCopy = cart.slice();                         // 1. create copy
+    for (var i = 0; i < cartCopy.length; i++) {
+        if (cartCopy[i].name === name)
+            cartCopy[i] = setPrice(cartCopy[i], price);  // 2. mutate copy
+    }
+    return cartCopy;                                     // 3. return copy
+}
+
+/** (Computation) */
+function setPrice(item, new_price) {
+    var item_copy = Object.assign({}, item);  // 1. create copy
+    item_copy.price = new_price;              // 2. mutate copy
+    return item_copy;                         // 3. return copy
 }

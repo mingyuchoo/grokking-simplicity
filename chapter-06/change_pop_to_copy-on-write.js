@@ -15,8 +15,8 @@ function drop_last(array) {
 
 /** Before (Action) */
 function drop_last(array) {
-    var array_copy = array.slice(); // 1. make copy
-    array_copy.pop();               // 2. change copy
+    var array_copy = array.slice(); // 1. create copy
+    array_copy.pop();               // 2. mutate copy
     return array_copy;              // 3. return copy
 }
 

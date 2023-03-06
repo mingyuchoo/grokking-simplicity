@@ -14,8 +14,8 @@ function submit_form_handler(event) {
 
 /** After (Computation) */
 function add_contact(mailing_list, email) {
-    var list_copy = mailing_list.slice();  // make copy
-    list_copy.push(email);                 // change copy
+    var list_copy = mailing_list.slice();  // create copy
+    list_copy.push(email);                 // mutate copy
     return list_copy;                      // return copy
 }
 
