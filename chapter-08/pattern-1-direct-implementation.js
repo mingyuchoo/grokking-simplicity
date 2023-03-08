@@ -1,6 +1,6 @@
 // freeTieClip()
-//   |- |- array index
 //   |- |- for loop
+//   |- |- array index
 //   |- make_item()
 //   |- add_item()
 
@@ -43,9 +43,12 @@ function freeTieClip(cart) {
     return cart;
 }
 
+
+/** Before - isInCart */
+
 // isInCart()
-//   |- array index
 //   |- for loop
+//   |- array index
 
 function isInCart(cart, name) {
     for (var i = 0; i < cart.length; i++) {
@@ -55,9 +58,21 @@ function isInCart(cart, name) {
     return false;
 }
 
+/** After - isInCart */
+
+// isInCart()
+//   |- indexOfItem()
+
+function isInCart(cart, name) {
+    return indexOfItem(cart, name) !== null;
+}
+
+
+/** Before  - remove_item_by_name */
+
 // remove_item_by_name()
-//   |- array index
-//   |- for loop
+//   |- |- for loop
+//   |- |- array index
 //   |- removeItems()
 
 function remove_item_by_name(cart, name) {
@@ -71,6 +86,33 @@ function remove_item_by_name(cart, name) {
     return cart;
 }
 
+/** After - remove_item_by_name */
+
+// remove_item_by_name()
+//   |- indexOfItem()
+//   |- removeItems()
+
+function remove_item_by_name(cart, name) {
+
+    var idx = indexOfItem(cart, name); // refactoring
+
+    if (idx !== null)
+        return removeItems(cart, idx, 1);
+    return cart;
+}
+
+// indexOfItem()
+//   |- for loop
+//   |- array index
+
+function indexOfItem(cart, name) {
+    for (var i = 0; i < cart.length; i++) {
+        if (cart[i].name === name)
+            return i;
+    }
+    return null;
+}
+
 // add_item()
 //   |- add_element_last()
 
@@ -79,8 +121,8 @@ function add_item(cart, item) {
 }
 
 // calc_total()
-//   |- array index
 //   |- for loop
+//   |- array index
 
 function calc_total(cart) {
     var total = 0;
@@ -98,10 +140,19 @@ function gets_free_shipping(cart) {
     return calc_total(cart) >= 20;
 }
 
+// cartTax()
+//   |- calc_tax()
+
+function cartTax(cart) {
+    return calc_tax(calc_total(cart));
+}
+
+/** Before - setPriceByName */
+
 // setPriceByName()
-//   |- .slice()
-//   |- array index
-//   |- for loop
+//   |- |- .slice()
+//   |- |- for loop
+//   |- |- array index
 //   |- setPrice()
 
 function setPriceByName(cart, name, price) {
@@ -113,9 +164,42 @@ function setPriceByName(cart, name, price) {
     return cartCopy;
 }
 
-// cartTax()
-//   |- calc_tax()
+/** After 1 - setPriceByName */
 
-function cartTax(cart) {
-    return calc_tax(calc_total(cart));
+// setPriceByName()
+//   |- |- .slice()
+//   |- indexOfItem()
+//   |- |- array index
+//   |- setPrice()
+
+function setPriceByName(cart, name, price) {
+    var cartCopy = cart.slice();
+    var i = indexOfItem(cart, name);
+    if (i !== null)
+        cartCopy[i] = setPrice(cartCopy[i], price);
+    return cartCopy;
+}
+
+/** After 2 - setPriceByName */
+
+// setPriceByName()
+//   |- indexOfItem()
+//   |- arraySet()
+//   |- |- array index
+//   |- setPrice()
+
+function setPriceByName(cart, name, price) {
+    var i = indexOfItem(cart, name);
+    if (i !== null)
+        return arraySet(cart, i, setPrice(cart[i], price);
+    return cart;
+}
+// arraySet()
+//   |- .slice()
+//   |- array index
+
+function arraySet(array, idx, value) {
+    var copy = array.slice();   // 1. create copy
+    copy[idx] = value;          // 2. mutate copy
+    returnn copy;               // 3. return copy
 }
