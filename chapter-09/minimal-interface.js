@@ -274,3 +274,29 @@ function arraySet(array, idx, value) {
     copy[idx] = value;          // 2. mutate copy
     returnn copy;               // 3. return copy
 }
+
+
+// getsWatchDiscount() : BAD
+//   |- for loop
+//   |- array index
+function getsWatchDiscount(cart) {
+  var total = 0;
+  var names = Object.keys(cart);
+  for (var i = 0; i < names.length; i++) {
+    var item = cart[names[i]];
+    total += item.price;
+  }
+  return total > 100 && cart.hasOwnProperty("watch");
+}
+
+// getsWatchDiscount() : GOOD
+//   |- calcTotal()
+//   |- isInCart()
+function getsWatchDiscount(cart) {
+  var total = calcTotal(cart);
+  var hasWatch = isInCart("watch");
+  return total > 100 && hasWatch;
+}
+
+
+

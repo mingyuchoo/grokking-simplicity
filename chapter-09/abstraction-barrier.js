@@ -274,3 +274,33 @@ function arraySet(array, idx, value) {
     copy[idx] = value;          // 2. mutate copy
     returnn copy;               // 3. return copy
 }
+
+
+/** Action */
+
+// add_item_to_cart()
+//   |- make_cart_item()
+//   |- add_item()
+//   |- calc_total()
+//   |- set_cart_total_dom()
+//   |- update_shipping_icons()
+//   |- update_tax_dom
+//   |- logAddToCart()
+
+function add_item_to_cart(name, price) {
+  var item = make_cart_item(name, price);
+  shopping_cart = add_item(shopping_cart, item);
+  var total = calc_total(shopping_cart);
+  set_cart_total_dom(total);
+  updaet_shipping_icons(shopping_cart);
+  update_tax_dom(total);
+  logAddToCart(name, price);
+
+
+/** Action */
+
+// logAddToCart()
+
+function logAddToChart(user_id, item) {
+  // should be implemented
+}
